@@ -9,14 +9,8 @@
 .idea
 *.iml
 
-# Notes
-*notes*
-
 # Poetry lock file
 poetry.lock
-
-# Test files
-*test*
 
 # VS Code settings
 .vscode

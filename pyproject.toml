@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "typed-dotenv"
+version = "0.1.0"
+description = "A better way to manage your dotenv variables"
+authors = ["DanielMuringe <danielmuringe@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+pydantic = "^2.6.1"
+python = "^3.10"
+python-dotenv = "^1.0.1"
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.2.0"
+mypy = "^1.8.0"
+pylint = "^3.0.3"
+pytest = "^8.0.1"
+poetry-plugin-export = "^1.6.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

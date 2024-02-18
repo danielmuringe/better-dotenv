@@ -1,0 +1,22 @@
+# Cache files
+*cache*
+
+# Environment files
+*env*
+!typed_dotenv
+
+# JetBrains settings
+.idea
+*.iml
+
+# Notes
+*notes*
+
+# Poetry lock file
+poetry.lock
+
+# Test files
+*test*
+
+# VS Code settings
+.vscode

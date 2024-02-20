@@ -1,10 +1,12 @@
+# General
+
 ## Declaration formats
-- env
-- ini
-- json
-- yaml
-- toml
-- xml
+1. env
+1. ini
+1. json
+1. toml
+1. xml
+1. yaml
 
 ## Loading functions
 
@@ -104,3 +106,16 @@
     Shell Variable Notation | Python Variable Notation
     ----------------------- | -------------------------
     `DICT_VAR = {"name": "John", "age": 25}` | `DICT_VAR = {"name": "John", "age": 25}`
+
+
+# Sections
+
+## Reader
+
+
+- Check if file formats match - InvalidFormatError
+- Check if file exists - pathlib.Path.exists
+- Read file - SyntaxError
+- Return file content as dict in form of 
+    name: content
+

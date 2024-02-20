@@ -17,7 +17,7 @@ class TypedEnvError(Exception):
     def check(self):
         """Check the condition and raise the error if it is met"""
 
-        if self.check_condition:
+        if not self.check_condition:
             super().__init__(f"{self.message}")
 
             if self.raised_from is not None:

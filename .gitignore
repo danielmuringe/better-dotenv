@@ -3,7 +3,7 @@
 
 # Environment files
 *env*
-!typed_dotenv
+!typed_env
 
 # JetBrains settings
 .idea

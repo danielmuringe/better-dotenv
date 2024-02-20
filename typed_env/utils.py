@@ -6,7 +6,6 @@ from pathlib import Path
 from typing import Union, TypeVar
 
 
-# Split a path to file name and extension
 def get_extension(name: str):
     """Split a file name and extension"""
 

@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "typed-dotenv"
+name = "typed-env"
 version = "0.1.0"
 description = "A better way to manage your dotenv variables"
 authors = ["DanielMuringe <danielmuringe@gmail.com>"]

@@ -6,6 +6,17 @@ from pathlib import Path
 from typing import Union, TypeVar
 
 
+ALLOWED_FORMATS = [
+    "env",
+    "environ",
+    "ini",
+    "json",
+    "toml",
+    "xml",
+    "yaml",
+]
+
+
 def get_extension(name: str):
     """Split a file name and extension"""
 

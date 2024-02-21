@@ -6,102 +6,79 @@ from configparser import ConfigParser
 from json import loads as json_loads
 
 # PIP imports
-from dotenv import dotenv_values as dotenv_loads
+from dotenv import dotenv_values as env_loads
 from toml import loads as toml_loads
 from xmltodict import parse as xml_loads
 from yaml import safe_load as yaml_loads
 
 # Second-party imports
-from .errors.reader import InvalidFileFormatError
+from .errors.reader import (
+    FormatUndeclaredError,
+    InvalidFormatError,
+    UnexpectedFormatError,
+)
 from .utils import Path, Pathy
 
 
+def ini_loads(path: Path) -> dict:
+    """Load the environment variable strings from an INI file"""
+
+    config = ConfigParser()
+    config.read(path)
+    return {section: dict(config[section]) for section in config.sections()}
+
+
+def environ_loads(vars_to_get: list[str]) -> dict:
+    """Load the environment variable strings from os environment namespace"""
+
+    return {var: environ[var] for var in vars_to_get}
+
+
 class Reader:
-    """
-    Read environment variables from file.
-    If file is not provided then read from environment variables.
+    """Read and load the environment variable strings"""
 
-    args:
-        - path: Pathy
-        - format_: str = "env" | "envs" | "ini" | "json" | "toml" | "xml" | "yaml"
-        - included: list = None
-    """
+    def __init__(self, format_: str, format_input: Pathy | list[str]) -> None:
 
-    def __init__(
-        self,
-        path: Pathy = ".env",
-        format_=None,
-        included: list = None,
-    ):
+        # Check if format is declared and is valid
+        FormatUndeclaredError(format_).check()
+        InvalidFormatError(format_).check()
 
-        if format_ is None:
-            format_ = "env"
-        else:
-            # Check if format is declared, path is also declared
-            if not path:
-                raise ValueError("Path not declared")
+        # Get environment variables to exclude
+        self.exclude = environ.get("EXCLUDE", "list: []").split(",")
 
-        path, format_ = Path(path), format_.lower()
+        # Map format to loader function
+        self.loaders = {
+            "env": env_loads,
+            "environ": environ_loads,
+            "ini": ini_loads,
+            "json": json_loads,
+            "toml": toml_loads,
+            "xml": xml_loads,
+            "yaml": yaml_loads,
+        }
 
-        # Check if file exists
-        if not path.exists():
-            if not path.is_dir():
-                raise FileNotFoundError(f"File not found: {path}")
-            else:
-                raise IsADirectoryError(f"Is a directory: {path}")
+        self.format = format_
+        self.vars = self.loaders[self.format](format_input)
 
-        # Check that declared format and file extension match
-        InvalidFileFormatError(path, format_).check()
 
-        self.format, self.path = format_, path
+class FileReader(Reader):
+    """Read and load the environment variable strings from a file"""
 
-        if included is None:
-            included = []
+    def __init__(self, path: Pathy, format_=".env") -> None:
 
-        self.included = included
+        path = Path(path)
 
-    def read(self) -> dict:
-        """Read and load the environment variable strings"""
-        return getattr(self, f"__read_{self.format}")()
+        # Ensure file extension and declared format match
+        UnexpectedFormatError(path, format_).check()
+        super().__init__(format_, path)
+        self.path = path
 
-    def __read_env(self) -> dict:
-        """Read and load the environment variable strings from .env file"""
-        return dotenv_loads(self.path)
+        # Read environment variables from file
+        self.load = self.loaders[self.format](path)
 
-    def __read_ini(self) -> dict:
-        """Read and load the environment variable strings from .ini file"""
-        config = ConfigParser()
-        config.read(self.path)
-        return {section: dict(config[section]) for section in config.sections()}
 
-    def __read_json(self) -> dict:
-        """Read and load the environment variable strings from .json file"""
-        with open(self.path, "r") as file:
-            return json_loads(file.read())
+class EnvironReader(Reader):
+    """Read and load the environment variable strings from os environment namespace"""
 
-    def __read_toml(self) -> dict:
-        """Read and load the environment variable strings from .toml file"""
-        with open(self.path, "r") as file:
-            return toml_loads(file.read())
-
-    def __read_xml(self) -> dict:
-        """Read and load the environment variable strings from .xml file"""
-        with open(self.path, "r") as file:
-            return xml_loads(file.read())
-
-    def __read_yaml(self) -> dict:
-        """Read and load the environment variable strings from .yaml file"""
-        with open(self.path, "r") as file:
-            return yaml_loads(file.read())
-
-    def __read_envs(self) -> dict:
-        """Read and load the environment variable strings from environment variables"""
-
-        vars_ = {}
-        for var in self.included:
-            if var not in environ:
-                raise KeyError(f"Environment variable not found: {var}")
-
-            vars_[var] = environ[var]
-
-        return vars_
+    def __init__(self, include: list[str]) -> None:
+        super().__init__("environ", include)

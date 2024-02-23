@@ -2,7 +2,6 @@
 
 # Built-in imports
 from os import environ
-from configparser import ConfigParser
 from json import loads as json_loads
 
 # PIP imports
@@ -18,14 +17,6 @@ from .errors.reader import (
     UnexpectedFormatError,
 )
 from .utils import Path, Pathy
-
-
-def ini_loads(path: Path) -> dict:
-    """Load the environment variable strings from an INI file"""
-
-    config = ConfigParser()
-    config.read(path)
-    return {section: dict(config[section]) for section in config.sections()}
 
 
 def environ_loads(vars_to_get: list[str]) -> dict:
@@ -47,34 +38,17 @@ class Reader:
         self.exclude = environ.get("EXCLUDE", "list: []").split(",")
 
         # Map format to loader function
-        self.loaders = {
-            "env": env_loads,
-            "environ": environ_loads,
-            "ini": ini_loads,
-            "json": json_loads,
-            "toml": toml_loads,
-            "xml": xml_loads,
-            "yaml": yaml_loads,
-        }
+        self.loaders = [
+            env_loads,
+            environ_loads,
+            json_loads,
+            toml_loads,
+            xml_loads,
+            yaml_loads,
+        ]
 
         self.format = format_
         self.vars = self.loaders[self.format](format_input)
-
-
-class FileReader(Reader):
-    """Read and load the environment variable strings from a file"""
-
-    def __init__(self, path: Pathy, format_=".env") -> None:
-
-        path = Path(path)
-
-        # Ensure file extension and declared format match
-        UnexpectedFormatError(path, format_).check()
-        super().__init__(format_, path)
-        self.path = path
-
-        # Read environment variables from file
-        self.load = self.loaders[self.format](path)
 
 
 class EnvironReader(Reader):
@@ -82,3 +56,16 @@ class EnvironReader(Reader):
 
     def __init__(self, include: list[str]) -> None:
         super().__init__("environ", include)
+
+
+class FileReader(Reader):
+    """Read and load the environment variable strings from a file"""
+
+    def __init__(self, path: Pathy = ".env", format_="env") -> None:
+
+        path = Path(path)
+
+        # Ensure file extension and declared format match
+        UnexpectedFormatError(path, format_).check()
+        super().__init__(format_, path)
+        self.path = path

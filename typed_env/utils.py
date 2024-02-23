@@ -3,13 +3,12 @@
 # Built-in imports
 from os import PathLike
 from pathlib import Path
-from typing import Union, TypeVar
+from typing import TypeVar
 
 
 ALLOWED_FORMATS = [
     "env",
     "environ",
-    "ini",
     "json",
     "toml",
     "xml",

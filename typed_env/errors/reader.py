@@ -9,6 +9,17 @@ class ReaderError(TypedEnvError):
     """Error experienced during the reading process"""
 
 
+class FormatLoaderMissingError(ReaderError):
+    """Format loader missing error"""
+
+    def __init__(self, format_: str, name_error: NameError = None):
+
+        message = f"Format loader missing for {format_}."
+        check_condition = format_ in ALLOWED_FORMATS
+
+        super().__init__(message, check_condition, raised_from=name_error)
+
+
 class UnexpectedFormatError(ReaderError):
     """Invalid file format error"""
 

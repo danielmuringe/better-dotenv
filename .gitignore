@@ -5,6 +5,7 @@
 *env*
 !typed_env
 !tests/data/env*
+!.env
 
 # JetBrains settings
 .idea

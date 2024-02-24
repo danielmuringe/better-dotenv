@@ -3,7 +3,7 @@ name = "secret-garden"
 version = "0.1.0"
 description = "A better way to manage your dotenv variables"
 authors = ["DanielMuringe <danielmuringe@gmail.com>"]
-readme = "README.md"
+readme = "USAGE.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"

@@ -1,4 +1,4 @@
-# typed-dotenv
+# typed-env
 ## A better way to manage your dotenv variables
 
 ## Table of Contents
@@ -25,13 +25,13 @@
 - Installing the package
 
     ```
-    poetry add typed-dotenv
+    poetry add typed-env
     ```
 
 - Check if the package is installed
 
     ```
-    poetry show typed-dotenv
+    poetry show typed-env
     ```
 
 
@@ -67,7 +67,7 @@ COMING SOON...
 
 - Fork the repository and clone it
     ```
-    git clone https://github.com/danielmuringe/typed-dotenv
+    git clone https://github.com/danielmuringe/typed-env
     ```
 
 - Create a new branch from the `dev` branch: 

@@ -1,26 +1,25 @@
 # Cache files
 *cache*
 
-# Environment files
+# Environment files apart from main module and test data
 *env*
-!typed_dotenv
+!typed_env
+!tests/data/env*
+!.env
 
 
 # JetBrains settings
 .idea
 *.iml
 
-# Notes
-*notes*
+# Playground
+*playground*
 
 # Playground
 *playground*
 
 # Poetry lock file
 poetry.lock
-
-# Test files
-*test*
 
 # VS Code settings
 .vscode

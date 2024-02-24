@@ -1,4 +1,4 @@
-# typed-env
+# secret-garden
 ## A better way to manage your dotenv variables
 
 ## Table of Contents
@@ -25,13 +25,13 @@
 - Installing the package
 
     ```
-    poetry add typed-env
+    poetry add secret-garden
     ```
 
 - Check if the package is installed
 
     ```
-    poetry show typed-env
+    poetry show secret-garden
     ```
 
 
@@ -67,7 +67,7 @@ COMING SOON...
 
 - Fork the repository and clone it
     ```
-    git clone https://github.com/danielmuringe/typed-env
+    git clone https://github.com/danielmuringe/secret-garden
     ```
 
 - Create a new branch from the `dev` branch: 

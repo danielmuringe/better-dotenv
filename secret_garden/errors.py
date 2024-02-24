@@ -1,4 +1,4 @@
-"""Errors for typed_env"""
+"""Errors for secret_garden"""
 
 # Second-party imports
 from .utils import ALLOWED_FORMATS, get_extension, Path, Pathy
@@ -14,7 +14,7 @@ __all__ = [
 
 
 class TypedEnvError(Exception):
-    """Base error class for typed_env"""
+    """Base error class for secret_garden"""
 
     def __init__(
         self,
@@ -103,7 +103,13 @@ class UnexpectedFormatError(ParserError):
         self.expected_format = expected_format
         self.path_extension = get_extension(self.path.name)
 
-        message = f'Unexpected file format for "{self.path}"; Expected "{self.expected_format}"'
+        message = (
+            f'Unexpected file format for "{self.path}" in "{self.expected_format}"'
+        )
         check_condition = self.path_extension == self.expected_format
 
         super().__init__(message, check_condition)
+
+
+class LoaderError(TypedEnvError):
+    """Error experienced during the loading process"""

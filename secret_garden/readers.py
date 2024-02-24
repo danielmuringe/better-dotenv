@@ -2,13 +2,13 @@
 
 # Built-in imports
 from ast import literal_eval
-from json import loads as json_loads
+from json import loads as json_reads
 from os import environ
 
 # PIP imports
 from dotenv import dotenv_values
-from toml import loads as toml_loads
-from yaml import safe_load as yaml_loads
+from toml import loads as toml_reads
+from yaml import safe_load as yaml_reads
 
 # Second-party imports
 from .errors import EnvironVarUndeclaredError
@@ -60,14 +60,14 @@ def environ_reader(vars_to_get: list[str]) -> dict:
 
 def json_reader(path: Pathy) -> dict:
     """Read the environment variable strings from a JSON file"""
-    return json_loads(read_file(path))
+    return json_reads(read_file(path))
 
 
 def toml_reader(path: Pathy) -> dict:
     """Read the environment variable strings from a TOML file"""
-    return toml_loads(read_file(path))
+    return toml_reads(read_file(path))
 
 
 def yaml_reader(path: Pathy) -> dict:
     """Read the environment variable strings from a YAML file"""
-    return yaml_loads(read_file(path))
+    return yaml_reads(read_file(path))

@@ -1,12 +1,11 @@
 [tool.poetry]
-name = "typed-env"
+name = "secret-garden"
 version = "0.1.0"
 description = "A better way to manage your dotenv variables"
 authors = ["DanielMuringe <danielmuringe@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-pydantic = "^2.6.1"
 python = "^3.10"
 python-dotenv = "^1.0.1"
 toml = "^0.10.2"

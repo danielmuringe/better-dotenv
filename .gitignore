@@ -3,17 +3,13 @@
 
 # Environment files apart from main module and test data
 *env*
-!secret_garden
-!tests/data/env*
-!.env
-
 
 # JetBrains settings
 .idea
 *.iml
 
-# Playground
-*playground*
+# Notes
+*notes*
 
 # Playground
 *playground*
@@ -21,9 +17,8 @@
 # Poetry lock file
 poetry.lock
 
+# Test files
+*test*
+
 # VS Code settings
 .vscode
-
-
-# Cache files
-*cache*

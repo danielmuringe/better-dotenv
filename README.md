@@ -11,7 +11,7 @@
     - [Prior Guidelines](#prior-guidelines)
     - [Contribution Process](#contribution-process)
 1. [Upcoming features](#upcoming-features)
-1. [Acknowledgement](#acknowledgements)
+1. [Acknowledgement](#acknowledgement)
 1. [Licence](#licence)
 
 

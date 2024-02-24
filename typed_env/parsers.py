@@ -15,7 +15,6 @@ from .utils import (
 
 
 __all__ = [
-    "Parser",
     "EnvironParser",
     "FileParser",
 ]

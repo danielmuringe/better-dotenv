@@ -5,12 +5,16 @@
 *env*
 !typed_dotenv
 
+
 # JetBrains settings
 .idea
 *.iml
 
 # Notes
 *notes*
+
+# Playground
+*playground*
 
 # Poetry lock file
 poetry.lock
@@ -20,3 +24,7 @@ poetry.lock
 
 # VS Code settings
 .vscode
+
+
+# Cache files
+*cache*

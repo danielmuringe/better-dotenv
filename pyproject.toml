@@ -10,9 +10,7 @@ pydantic = "^2.6.1"
 python = "^3.10"
 python-dotenv = "^1.0.1"
 toml = "^0.10.2"
-configparser = "^6.0.0"
 pyyaml = "^6.0.1"
-xmltodict = "^0.13.0"
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.2.0"
@@ -23,6 +21,9 @@ poetry-plugin-export = "^1.6.0"
 types-pyyaml = "^6.0.12.12"
 types-toml = "^0.10.8.7"
 types-xmltodict = "^0.13.0.3"
+types-pygments = "^2.17.0.20240106"
+types-colorama = "^0.4.15.20240205"
+types-setuptools = "^69.1.0.20240223"
 
 
 [build-system]

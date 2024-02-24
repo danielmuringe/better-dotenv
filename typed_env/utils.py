@@ -6,16 +6,23 @@ from pathlib import Path
 from typing import TypeVar
 
 
+# TYPEVARS
+Pathy = TypeVar("Pathy", str, Path, PathLike)
+
+
+# CONSTANTS
 ALLOWED_FORMATS = [
     "env",
     "environ",
     "json",
     "toml",
-    "xml",
     "yaml",
 ]
 
+FILE_ENCODING = "utf-8"
 
+
+# FUNCTIONS
 def get_extension(name: str):
     """Split a file name and extension"""
 
@@ -30,4 +37,8 @@ def get_extension(name: str):
     return extension
 
 
-Pathy = TypeVar("Pathy", str, Path, PathLike)
+def read_file(path: Pathy) -> str:
+    """Read a file and return its contents"""
+
+    with open(path, "r", encoding=FILE_ENCODING) as file_:
+        return file_.read()

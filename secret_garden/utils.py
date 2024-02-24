@@ -1,4 +1,4 @@
-"""Utility objects and functions for typed_env package."""
+"""Utility objects and functions for secret_garden package."""
 
 # Built-in imports
 from os import PathLike

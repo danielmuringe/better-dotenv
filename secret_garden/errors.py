@@ -1,4 +1,4 @@
-"""Errors for typed_env"""
+"""Errors for secret_garden"""
 
 # Second-party imports
 from .utils import ALLOWED_FORMATS, get_extension, Path, Pathy
@@ -14,7 +14,7 @@ __all__ = [
 
 
 class TypedEnvError(Exception):
-    """Base error class for typed_env"""
+    """Base error class for secret_garden"""
 
     def __init__(
         self,

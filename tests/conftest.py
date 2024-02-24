@@ -10,7 +10,7 @@ import toml
 import yaml
 
 # Second party imports
-from typed_env.utils import FILE_ENCODING, Path
+from secret_garden.utils import FILE_ENCODING, Path
 
 
 DATA_DIR = Path(__file__).parent / "data"

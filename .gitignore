@@ -3,7 +3,7 @@
 
 # Environment files apart from main module and test data
 *env*
-!typed_env
+!secret_garden
 !tests/data/env*
 !.env
 

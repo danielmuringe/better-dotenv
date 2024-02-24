@@ -23,4 +23,4 @@
 
     but needed variables will have to be declared in the function call
 
-- [ ] Ensure steps are complete: [here on line 33 and 47](typed_env/readers.py)
+- [ ] Ensure steps are complete: [here on line 33 and 47](secret_garden/readers.py)

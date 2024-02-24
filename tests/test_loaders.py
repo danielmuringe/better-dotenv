@@ -1,7 +1,7 @@
 """Test main loading functions"""
 
 # Second-party imports
-from typed_env import load, load_file, load_space
+from secret_garden import load, load_file, load_space
 
 
 def test_load_space(final_data, included_vars, excluded_vars):

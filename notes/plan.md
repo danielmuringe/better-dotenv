@@ -1,18 +1,19 @@
+# General
+
 ## Declaration formats
-- env
-- ini
-- json
-- yaml
-- toml
-- xml
+1. env
+1. environ
+1. json
+1. toml
+1. yaml
 
 ## Loading functions
 
-- load(path, format_, globals_dict, included, type_, variable_names)
+- load(format_, path,  globals_dict, included, variable_names)
 
     - if path is provided: load_file
 
-
+    - if included is provided: load_space
 
 - load_file(path, type_, included)
 
@@ -22,12 +23,9 @@
 
 
 ## Actions
-- One can declare variables explicitly or implicitly
+- One can declare variables implicitly
 - Read file with environment variables: default -> .env
 - Break down environment variables
-
-    - Check if type is explicitly declared
-    - If not, infer type from value by tokenizing the value
 
 ## Types
 
@@ -38,12 +36,7 @@
 - bool
 
 ### Collection Types
-- `list[ <type1>, <type2> ]`
 - list
-- list[int]
-- list[float]
-- list[string]
-- list[bool]
 
 ### Mapping Types
 - dict

@@ -6,6 +6,7 @@ from .parsers import (
     FileParser,
 )
 from .utils import Path, PathLike
+from .utils import Path, PathLike
 
 
 __all__ = [
@@ -67,7 +68,9 @@ def load(
 ) -> dict | None:
     """Load the environment variables from a file or a string.
 
-    If both path and include are provided, the variables are loaded from the file and the include argument is ignored
+    If both path and include are provided, the variables are loaded from the file and the include argument is ignored.
+
+    If path does not exist, the variables are loaded from the environment namespace and the include argument is used to filter the variables.
 
     Args:
         - path (Path | PathLike | str): The path to the file containing the environment variables

@@ -6,7 +6,6 @@ from .parsers import (
     FileParser,
 )
 from .utils import Path, PathLike
-from .utils import Path, PathLike
 
 
 __all__ = [

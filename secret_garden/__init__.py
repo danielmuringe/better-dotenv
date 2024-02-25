@@ -41,7 +41,6 @@ def load_file(path: Pathy, format_: str, globals_: dict = None) -> dict | None:
     """Args:
         - format_ (str): The format of the file or string. It can be one of the following:
 
-                - 'environ': Load the environment variables from a string
                 - 'env': Load the environment variables from a dotenv file
                 - 'json': Load the environment variables from a json file
                 - 'toml': Load the environment variables from a toml file
@@ -74,7 +73,7 @@ def load(
         or the environment variables to include
         - format_ (str): The format of the file or string. It can be one of the following:
 
-                - 'environ': Load the environment variables from a string
+                - 'environ': Load the environment variables from the environment namespace
                 - 'env': Load the environment variables from a dotenv file
                 - 'json': Load the environment variables from a json file
                 - 'toml': Load the environment variables from a toml file

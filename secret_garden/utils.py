@@ -3,11 +3,6 @@
 # Built-in imports
 from os import PathLike
 from pathlib import Path
-from typing import TypeVar
-
-
-# TYPEVARS
-Pathy = TypeVar("Pathy", str, Path, PathLike)
 
 
 # CONSTANTS
@@ -37,7 +32,7 @@ def get_extension(name: str):
     return extension
 
 
-def read_file(path: Pathy) -> str:
+def read_file(path: Path | PathLike | str) -> str:
     """Read a file and return its contents"""
 
     with open(path, "r", encoding=FILE_ENCODING) as file_:

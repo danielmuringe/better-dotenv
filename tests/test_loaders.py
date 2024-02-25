@@ -4,69 +4,134 @@
 from secret_garden import load, load_file, load_space
 
 
-def test_load_space(final_data, included_vars, excluded_vars):
+class TestLoadSpace:
     """Test the load_space function"""
 
-    # Test return value
-    vars_ = load_space(included_vars)
-    assert vars_ == final_data
+    def test_return_value(self, final_data, included_vars, excluded_vars):
+        """Test return value"""
+        vars_ = load_space(included_vars)
+        assert vars_ == final_data
 
-    for excluded_var in excluded_vars:
-        assert excluded_var not in vars_
+        # Test excluded variables
+        for excluded_var in excluded_vars:
+            assert excluded_var not in vars_
 
-    # Test global variables
-    load_space(included_vars, globals())
-    for var, val in final_data.items():
-        assert globals()[var] == val
+    def test_global_variables(self, final_data, included_vars, excluded_vars):
+        """Test global variables"""
+        load_space(included_vars, globals())
+        for var, val in final_data.items():
+            assert globals()[var] == val
 
-    for excluded_var in excluded_vars:
-        assert excluded_var not in vars_
+        # Test excluded variables
+        for excluded_var in excluded_vars:
+            assert excluded_var not in globals()
 
 
-def test_load_file(final_data, data_dir, file_formats):
+class TestLoadFile:
     """Test the load_file function"""
 
-    for file_format in file_formats:
-        file_path = data_dir / f"env.{file_format}"
+    def test_return_value(self, final_data, data_dir, file_formats, excluded_vars):
+        """Test return value"""
+        for file_format in file_formats:
+            file_path = data_dir / f"env.{file_format}"
+            vars_ = load_file(file_path, file_format)
+            assert vars_ == final_data
 
-        # Test return value
-        vars_ = load_file(file_path, file_format)
-        assert vars_ == final_data
+            # Test excluded variables
+            for excluded_var in excluded_vars:
+                assert excluded_var not in vars_
 
-        # Test global variables
-        load_file(file_path, file_format, globals())
-        for var, val in final_data.items():
-            assert globals()[var] == val
+    def test_global_variables(self, final_data, data_dir, file_formats, excluded_vars):
+        """Test global variables"""
+        for file_format in file_formats:
+            file_path = data_dir / f"env.{file_format}"
+            load_file(file_path, file_format, globals())
+            for var, val in final_data.items():
+                assert globals()[var] == val
+
+            # Test excluded variables
+            for excluded_var in excluded_vars:
+                assert excluded_var not in globals()
 
 
-def test_load(final_data, file_formats, data_dir, included_vars, excluded_vars):
+class TestLoad:
     """Test the load function"""
 
-    # TEST FILE VARS
-    for file_format in file_formats:
-        file_path = data_dir / f"env.{file_format}"
+    def test_file_arg_only(
+        self,
+        final_data,
+        file_formats,
+        data_dir,
+        excluded_vars,
+    ):
+        """Test loading using file only"""
+        for file_format in file_formats:
+            file_path = data_dir / f"env.{file_format}"
+
+            # Test return value
+            vars_ = load(file_path, format_=file_format)
+            assert vars_ == final_data
+
+            # Test global variables
+            load(file_path, format_=file_format, globals_=globals())
+            for var, val in final_data.items():
+                assert globals()[var] == val
+
+            # Test excluded variables
+            for excluded_var in excluded_vars:
+                assert excluded_var not in vars_
+                assert excluded_var not in globals()
+
+    def test_include_arg_only(
+        self,
+        final_data,
+        included_vars,
+        excluded_vars,
+    ):
+        """Test loading using include only"""
 
         # Test return value
-        vars_ = load(file_path, file_format)
+        vars_ = load(included_vars)
         assert vars_ == final_data
 
         # Test global variables
-        load(file_path, file_format, globals())
+        load(included_vars, globals_=globals())
         for var, val in final_data.items():
             assert globals()[var] == val
 
-    # TEST SPACE VARS
-    # Test return value
-    vars_ = load(included_vars)
-    assert vars_ == final_data
+        # Test excluded variables
+        for excluded_var in excluded_vars:
+            assert excluded_var not in vars_
+            assert excluded_var not in globals()
 
-    for excluded_var in excluded_vars:
-        assert excluded_var not in vars_
+    def test_file_and_include_args(
+        self,
+        final_data,
+        file_formats,
+        data_dir,
+        included_vars,
+        excluded_vars,
+    ):
+        """Test loading using file and include args"""
 
-    # Test global variables
-    load(included_vars, globals())
-    for var, val in final_data.items():
-        assert globals()[var] == val
+        for file_format in file_formats:
+            file_path = data_dir / f"env.{file_format}"
 
-    for excluded_var in excluded_vars:
-        assert excluded_var not in vars_
+            # Test return value
+            vars_ = load(file_path, included_vars, format_=file_format)
+            assert vars_ == final_data
+
+            # Test global variables
+            load(
+                file_path,
+                included_vars,
+                format_=file_format,
+                globals_=globals(),
+            )
+            for var, val in final_data.items():
+                assert globals()[var] == val
+
+            # Test excluded variables
+            for excluded_var in excluded_vars:
+                assert excluded_var not in vars_
+                assert excluded_var not in globals()

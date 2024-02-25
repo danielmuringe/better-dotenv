@@ -6,11 +6,22 @@ from os import environ
 from typing import Callable
 
 # Second-party imports
-from .errors import *
-from .readers import *
+from .errors import (
+    FormatReaderMissingError,
+    FormatUndeclaredError,
+    InvalidFormatError,
+    UnexpectedFormatError,
+)
+from .readers import (
+    env_reader,
+    environ_reader,
+    json_reader,
+    toml_reader,
+    yaml_reader,
+)
 from .utils import (
     Path,
-    Pathy,
+    PathLike,
 )
 
 
@@ -23,7 +34,9 @@ __all__ = [
 class Parser:
     """Read and load the environment variable strings"""
 
-    def __init__(self, format_: str, format_input: Pathy | list[str]) -> None:
+    def __init__(
+        self, format_: str, format_input: Path | PathLike | str | list[str]
+    ) -> None:
 
         # Check if format is declared and is valid
         FormatUndeclaredError(format_).check()
@@ -62,7 +75,7 @@ class EnvironParser(Parser):
 class FileParser(Parser):
     """Read and load the environment variable strings from a file"""
 
-    def __init__(self, path: Pathy, format_) -> None:
+    def __init__(self, path: Path | PathLike | str, format_) -> None:
 
         self.path = Path(path)
         self.format = format_

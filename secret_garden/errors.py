@@ -1,7 +1,7 @@
 """Errors for secret_garden"""
 
 # Second-party imports
-from .utils import ALLOWED_FORMATS, get_extension, Path, Pathy
+from .utils import ALLOWED_FORMATS, get_extension, Path, PathLike
 
 
 __all__ = [
@@ -97,7 +97,7 @@ class InvalidFormatError(ParserError):
 class UnexpectedFormatError(ParserError):
     """Invalid file format error"""
 
-    def __init__(self, path: Pathy, expected_format: str):
+    def __init__(self, path: Path | PathLike | str, expected_format: str):
 
         self.path = Path(path)
         self.expected_format = expected_format

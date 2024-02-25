@@ -1,7 +1,7 @@
 """Test reader classes"""
 
 # Second-party imports
-from secret_garden.parsers import EnvironParser, FileParser, environ
+from secret_garden.parsers import EnvironParser, FileParser
 
 
 def test_file_reader(final_data, data_dir, file_formats, excluded_vars):

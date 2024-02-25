@@ -11,8 +11,8 @@
 ## Table of Contents
 
 1. [Usage](#usage)
-    - load_file function
-    - load_space function
+    - [load_file function](#load_file-function)
+    - [load_space function](#load_space-function)
 
 1. [Examples](#examples)
     - [Using a file](#using-a-file)
@@ -27,82 +27,82 @@
     - [load_file](#load_file)
     - [load_space](#load_space)
 
-1. [Upcoming features](#upcoming-features)
+1. [Upcoming Features](#upcoming-features)
 
 
-<h2 id="usage">Usage<h2>
+<h2 id="usage">Usage</h2>
 
-<p>You can put your variables in a file or use the environment namespace<p>
+You can put your variables in a file or use the environment namespace
 
-### load_file function
+<h3 id="load_file-function">load_file function</h3>
 
-- Create a file using one of the following formats and add your variables:
+Create a file using one of the following formats and add your variables:
 
-    - `.env`
-    - `.json`
-    - `.yaml`
-    - `.toml`
+- `.env`
+- `.json`
+- `.yaml`
+- `.toml`
 
-        **NB: When using the `.env` file, the variables should be declared as python variables**
+    **Note: When using the `.env` file, the variables should be declared as python variables**
     
 
-- Use the `load_file` function to load the variables, specifying the format of the file
+Use the `load_file` function to load the variables, specifying the format of the file
 
-    ```python
-    from secret_garden import load_file
-    load_file('path/to/your/file', format_='<your_format>')
-    ```
+```python
+from secret_garden import load_file
+load_file('path/to/your/file', format_='<your_format>')
+```
 
-- Pass the globals dictionary if you want to load the variables into the global namespace
+Pass the globals dictionary if you want to load the variables into the global namespace
 
-    ```python
-    from secret_garden import load_file
-    load_file(
-        'path/to/your/file',
-        format_='<your_format>',
-        globals_=globals()
-    )
-    ```
+```python
+from secret_garden import load_file
+load_file(
+    'path/to/your/file',
+    format_='<your_format>',
+    globals_=globals()
+)
+```
 
-### load_space function
+<h3 id="load_space-function">load_space function</h3>
 
-- Add your variables into the environment namespace
+Add your variables into the environment namespace
 
-    ```bash
-    export STR_VAR="string"
-    export INT_VAR=1
-    export FLOAT_VAR=1.0
-    export BOOL_VAR=True
-    export LIST_VAR="['item1', 'item2']"
-    export DICT_VAR="{'key1': 'value1', 'key2': 'value2'}"
-    ```
+```bash
+export STR_VAR="string"
+export INT_VAR=1
+export FLOAT_VAR=1.0
+export BOOL_VAR=True
+export LIST_VAR="['item1', 'item2']"
+export DICT_VAR="{'key1': 'value1', 'key2': 'value2'}"
+```
 
-- Use the `load_space` function to load the variables
+Use the `load_space` function to load the variables
 
-    ```python
-    from secret_garden import load_space
-    load_space(['STR_VAR', 'INT_VAR', 'FLOAT_VAR', 'BOOL_VAR', 'LIST_VAR', 'DICT_VAR'])
-    ```
+```python
+from secret_garden import load_space
+load_space(['STR_VAR', 'INT_VAR', 'FLOAT_VAR', 'BOOL_VAR', 'LIST_VAR', 'DICT_VAR'])
+```
 
-- Pass the globals dictionary if you want to load the variables into the global namespace
+Pass the globals dictionary if you want to load the variables into the global namespace
 
-    ```python
-    from secret_garden import load_space
-    load_space(
-        ['STR_VAR', 'INT_VAR', 'FLOAT_VAR', 'BOOL_VAR', 'LIST_VAR', 'DICT_VAR'],
-        globals_=globals()
-    )
-    ```
+```python
+from secret_garden import load_space
+load_space(
+    ['STR_VAR', 'INT_VAR', 'FLOAT_VAR', 'BOOL_VAR', 'LIST_VAR', 'DICT_VAR'],
+    globals_=globals()
+)
+```
 
-## Examples
+<h2 id="examples">Examples</h2>
 
-### Using a file
+<h3 id="using-a-file">Using a file</h3>
 
-#### env
+<h4 id="env">env</h4>
 
 - Add your variables into the `.env` file
 
-    ```env
+    ```python
     STR_VAR="string"
     INT_VAR=1
     FLOAT_VAR=1.0
@@ -129,7 +129,7 @@
     )
     ```
 
-#### json
+<h4 id="json">json</h4>
 
 - Add your variables into the `.json` file
 
@@ -162,8 +162,9 @@
     )
     ```
 
+<h4 id="toml">toml</h4>
 
-#### toml
+#####
 
 - Add your variables into the `.toml` file
 
@@ -192,7 +193,9 @@
     )
     ```
 
-#### yaml
+<h4 id="yaml">yaml</h4>
+
+#####
 
 - Add your variables into the `.yaml` file
 
@@ -227,8 +230,9 @@
     )
     ```
 
+<h3 id="using-the-environment-namespace">Using the environment namespace</h3>
 
-### Using the environment namespace
+#####
 
 - Add your variables into the environment namespace
 
@@ -259,9 +263,9 @@
     ```
 
 
-## Objects
+<h2  id="objects">Objects</h2>
 
-### `load`
+<h3 id="load"><code>load</code></h3>
 
 ```python
 load(
@@ -272,7 +276,7 @@ load(
 ```
 
 - `path_or_include` - path to the file containing the variables | list of variables to be included from the environment namespace
-- The `format_` parameter can be one of the following:
+- `format_` - Format of the file containing the variables.It can be one of the following:
     - 'env' - *Variables are declared as python variables*
     - 'environ' - *Variables are declared as environment variables where value are in quotes*
     - 'json'
@@ -280,23 +284,27 @@ load(
     - 'toml'
 - `globals_` - If not provided, variables will returned as a dictionary
 
-### `load_file`
+
+<h3 id="load_file"><code>load_file</code></h3>
+
 ```python
 load_file(
     path: str, # path to the file
     format_: str = 'environ', # the format of the file
     globals_: dict = None, # the execution global namespace to load the variables into
 )
+
 ```
 - `path` - The path to the file containing the variables
-- The `format_` parameter can be one of the following:
+- `format_` - Format of the file containing the variables.It can be one of the following:
     - 'env' - *Variables are declared as python variables*
     - 'json'
     - 'yaml'
     - 'toml'
 - `globals_` - If not provided, variables will returned as a dictionary
 
-### `load_space`
+<h3 id="load_space"><code>load_space</code></h3>
+
 ```python
 load_space(
     include: list, # a list of variables to be included from the environment namespace
@@ -307,11 +315,10 @@ load_space(
 - `globals_` - If not provided, variables will returned as a dictionary
 
 
+<h2 id="upcoming-features">Upcoming Features</h2>
 
-## Upcoming features
+- Make loading function default to environment namespace if provided path is not found
 
-- [ ] Make loading function default to environment namespace if provided path is not found
+- Support for multiline declaration in the `'env'` and `'environ'` formats
 
-- [ ] Support for multiline declaration in the `'env'` and `'environ'` formats
-
-- [ ] Support for nested dictionary and list types in the `'env'` and `'environ'` formats
+- Support for nested dictionary and list types in the `'env'` and `'environ'` formats

@@ -104,7 +104,7 @@ class TestLoad:
             assert excluded_var not in vars_
             assert excluded_var not in globals()
 
-    def test_file_and_include_args(
+    def test_valid_file_and_include_args(
         self,
         final_data,
         file_formats,
@@ -112,10 +112,42 @@ class TestLoad:
         included_vars,
         excluded_vars,
     ):
-        """Test loading using file and include args"""
+        """Test loading using a valid file and include args"""
 
         for file_format in file_formats:
             file_path = data_dir / f"env.{file_format}"
+
+            # Test return value
+            vars_ = load(file_path, included_vars, format_=file_format)
+            assert vars_ == final_data
+
+            # Test global variables
+            load(
+                file_path,
+                included_vars,
+                format_=file_format,
+                globals_=globals(),
+            )
+            for var, val in final_data.items():
+                assert globals()[var] == val
+
+            # Test excluded variables
+            for excluded_var in excluded_vars:
+                assert excluded_var not in vars_
+                assert excluded_var not in globals()
+
+    def test_invalid_file_and_include_args(
+        self,
+        final_data,
+        file_formats,
+        invalid_data_dir,
+        included_vars,
+        excluded_vars,
+    ):
+        """Using an invalid file and include args where loader defaults to environment namespace"""
+
+        for file_format in file_formats:
+            file_path = invalid_data_dir / f"env.{file_format}"
 
             # Test return value
             vars_ = load(file_path, included_vars, format_=file_format)

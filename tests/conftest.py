@@ -46,6 +46,12 @@ def data_dir():
 
 
 @fixture
+def invalid_data_dir():
+    """Return the invalid data directory"""
+    return Path("/path/to/invalid/directory")
+
+
+@fixture
 def data():
     """Return the test data"""
     return DATA
@@ -94,7 +100,7 @@ def environ_data():
 
 
 @fixture
-def included_vars(data, final_data):
+def included_vars(data):
     """Return the included variable"""
 
     for var, val in data.items():

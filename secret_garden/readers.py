@@ -12,7 +12,7 @@ from yaml import safe_load as yaml_reads
 
 # Second-party imports
 from .errors import EnvironVarUndeclaredError
-from .utils import Pathy, read_file
+from .utils import Path, PathLike, read_file
 
 
 __all__ = [
@@ -24,7 +24,7 @@ __all__ = [
 ]
 
 
-def env_reader(path: Pathy) -> dict:
+def env_reader(path: Path | PathLike | str) -> dict:
     """Read the environment variable strings from a file"""
 
     vars_ = {}
@@ -58,16 +58,16 @@ def environ_reader(vars_to_get: list[str]) -> dict:
     return vars_
 
 
-def json_reader(path: Pathy) -> dict:
+def json_reader(path: Path | PathLike | str) -> dict:
     """Read the environment variable strings from a JSON file"""
     return json_reads(read_file(path))
 
 
-def toml_reader(path: Pathy) -> dict:
+def toml_reader(path: Path | PathLike | str) -> dict:
     """Read the environment variable strings from a TOML file"""
     return toml_reads(read_file(path))
 
 
-def yaml_reader(path: Pathy) -> dict:
+def yaml_reader(path: Path | PathLike | str) -> dict:
     """Read the environment variable strings from a YAML file"""
     return yaml_reads(read_file(path))

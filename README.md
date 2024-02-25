@@ -5,8 +5,9 @@
 
 1. [Installation](#installation)
 1. [Usage](#usage)
-    - [Using a file](#using-a-file)
-    - [Using the environment namespace](#using-the-environment-namespace)
+    - [loading from a file](#load_file-function)
+    - [loading from the environment namespace](#load_space-function)
+    - [loading from a file using the environment namespace as an alternative](#load-function)
 1. [Contributors guide](#contributors-guide)
     - [Prior Guidelines](#prior-guidelines)
     - [Contribution Process](#contribution-process)
@@ -39,65 +40,93 @@
 
 ## Usage
 
-You can package your variables in a file or use the environment namespace
+You can put your variables in a file or use the environment namespace
 
-### Using a file
+<h3 id="load_file-function">Loading from a file</h3>
 
-- Create a file using one of the following formats and add your variables:
+Create a file using one of the following formats and add your variables:
 
-    - `.env`
-    - `.json`
-    - `.yaml`
-    - `.toml`
+- `.env`
+- `.json`
+- `.yaml`
+- `.toml`
 
-        **NB: When using the `.env` file, the variables should be declared as python variables**
+    **Note: When using the `.env` file, the variables should be declared as python variables**
     
 
-- Use the `load_file` function to load the variables, specifying the format of the file
+Use the `load_file` function to load the variables, specifying the format of the file
+
+```python
+from secret_garden import load_file
+load_file('path/to/your/file', format_='<your_format>')
+```
+
+Pass the globals dictionary if you want to load the variables into the global namespace
+
+```python
+from secret_garden import load_file
+load_file(
+    'path/to/your/file',
+    format_='<your_format>',
+    globals_=globals()
+)
+```
+
+<h3 id="load_space-function">Loading from the environment namespace</h3>
+
+Add your variables into the environment namespace
+
+```bash
+export STR_VAR="string"
+export INT_VAR=1
+export FLOAT_VAR=1.0
+export BOOL_VAR=True
+export LIST_VAR="['item1', 'item2']"
+export DICT_VAR="{'key1': 'value1', 'key2': 'value2'}"
+```
+
+Use the `load_space` function to load the variables
+
+```python
+from secret_garden import load_space
+load_space(['STR_VAR', 'INT_VAR', 'FLOAT_VAR', 'BOOL_VAR', 'LIST_VAR', 'DICT_VAR'])
+```
+
+Pass the globals dictionary if you want to load the variables into the global namespace
+
+```python
+from secret_garden import load_space
+load_space(
+    ['STR_VAR', 'INT_VAR', 'FLOAT_VAR', 'BOOL_VAR', 'LIST_VAR', 'DICT_VAR'],
+    globals_=globals()
+)
+```
+
+
+<h3 id="load-function">Loading from a file using the environment namespace as an alternative</h3>
+
+- This is done using the `load` function.
+
+- If both path and include are provided, the variables are loaded from the file and the include argument is ignored.
 
     ```python
-    from secret_garden import load_file
-    load_file('path/to/your/file', format_='<your_format>')
-    ```
-
-- Pass the globals dictionary if you want to load the variables into the global namespace
-
-    ```python
-    from secret_garden import load_file
-    load_file(
-        'path/to/your/file',
-        format_='<your_format>',
-        globals_=globals()
+    from secret_garden import load
+    load(
+        "/path/to/your/file", # path to the file containing the variables
+        ["VAR1", "VAR2"], # this will be ignored
+        format_ = 'env',
+        globals_ = None, 
     )
     ```
 
-### Using the environment namespace
-
-- Add your variables into the environment namespace
-
-    ```bash
-    export STR_VAR="string"
-    export INT_VAR=1
-    export FLOAT_VAR=1.0
-    export BOOL_VAR=True
-    export LIST_VAR="['item1', 'item2']"
-    export DICT_VAR="{'key1': 'value1', 'key2': 'value2'}"
-    ```
-
-- Use the `load_space` function to load the variables
-
+- If path does not exist, the variables are loaded from the environment namespace. The include argument is used to know which variables to get from the environment namespace.
     ```python
-    from secret_garden import load_space
-    load_space(['STR_VAR', 'INT_VAR', 'FLOAT_VAR', 'BOOL_VAR', 'LIST_VAR', 'DICT_VAR'])
-    ```
-
-- Pass the globals dictionary if you want to load the variables into the global namespace
-
-    ```python
-    from secret_garden import load_space
-    load_space(
-        ['STR_VAR', 'INT_VAR', 'FLOAT_VAR', 'BOOL_VAR', 'LIST_VAR', 'DICT_VAR'],
-        globals_=globals()
+    from secret_garden import load
+    load(
+        "/path/to/the/non-existent/file", # path to the non-existent file
+        ["VAR1", "VAR2"], # variables to be included from the environment namespace
+        format_ = 'env',
+        globals_ = None, 
     )
     ```
 
@@ -109,7 +138,7 @@ You can package your variables in a file or use the environment namespace
 
 1. All development is done on the `dev` branch and thus all pull requests should be made here.
 
-1. The `main` branch is only updated after a release is made.
+1. The `main` and `packaging` branches are out of bounds.
 
 1. Do not include development dependencies in the `requirements.txt` file.
 
@@ -125,7 +154,6 @@ You can package your variables in a file or use the environment namespace
     **python3.10** | [python3.10](https://www.python.org/downloads/release/python-3100/)
     **pip3.10** | Download [the get-pip.py file](https://bootstrap.pypa.io/get-pip.py) and run `python3.10 get-pip.py`
     **poetry** | `pip3.10 install poetry`
-    **poetry-plugin-export** | `pip3.10 install poetry-plugin-export`
 
 - Fork the repository and clone it
     ```
@@ -151,8 +179,6 @@ You can package your variables in a file or use the environment namespace
 
 
 ## Upcoming features
-
-- [ ] Make loading function default to environment namespace if provided path is not found
 
 - [ ] Support for multiline declaration in the `'env'` and `'environ'` formats
 

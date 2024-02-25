@@ -11,8 +11,9 @@
 ## Table of Contents
 
 1. [Usage](#usage)
-    - [load_file function](#load_file-function)
-    - [load_space function](#load_space-function)
+    - [loading from a file](#load_file-function)
+    - [loading from the environment namespace](#load_space-function)
+    - [loading from a file using the environment namespace as an alternative](#load-function)
 
 1. [Examples](#examples)
     - [Using a file](#using-a-file)
@@ -34,7 +35,7 @@
 
 You can put your variables in a file or use the environment namespace
 
-<h3 id="load_file-function">load_file function</h3>
+<h3 id="load_file-function">Loading from a file</h3>
 
 Create a file using one of the following formats and add your variables:
 
@@ -64,7 +65,7 @@ load_file(
 )
 ```
 
-<h3 id="load_space-function">load_space function</h3>
+<h3 id="load_space-function">Loading from the environment namespace</h3>
 
 Add your variables into the environment namespace
 
@@ -93,6 +94,34 @@ load_space(
     globals_=globals()
 )
 ```
+
+
+<h3 id="load-function">Loading from a file using the environment namespace as an alternative</h3>
+
+- This is done using the `load` function.
+
+- If both path and include are provided, the variables are loaded from the file and the include argument is ignored.
+
+    ```python
+    from secret_garden import load
+    load(
+        "/path/to/your/file", # path to the file containing the variables
+        ["VAR1", "VAR2"], # this will be ignored
+        format_ = 'env',
+        globals_ = None, 
+    )
+    ```
+
+- If path does not exist, the variables are loaded from the environment namespace. The include argument is used to know which variables to get from the environment namespace.
+    ```python
+    from secret_garden import load
+    load(
+        "/path/to/the/non-existent/file", # path to the non-existent file
+        ["VAR1", "VAR2"], # variables to be included from the environment namespace
+        format_ = 'env',
+        globals_ = None, 
+    )
+    ```
 
 <h2 id="examples">Examples</h2>
 
@@ -265,59 +294,63 @@ load_space(
 
 <h2  id="objects">Objects</h2>
 
-<h3 id="load"><code>load</code></h3>
+- <h3 id="load"><code>load</code></h3>
 
-```python
-load(
-    path_or_include: str | list, # path to the file or a list of variables to be included from the environment namespace
-    format_: str = 'environ', # the format of the file if path_or_include is a path
-    globals_: dict = None, # the execution global namespace to load the variables into
-)
-```
+    ```python
+    load(
+        path_or_include: Path | PathLike | str | list[str], # path to the file or a list of variables to be included from the environment namespace
+        format_: str = 'environ', # the format of the file if path_or_include is a path
+        globals_: dict = None, # the execution global namespace to load the variables into
+    )
+    ```
 
-- `path_or_include` - path to the file containing the variables | list of variables to be included from the environment namespace
-- `format_` - Format of the file containing the variables.It can be one of the following:
-    - 'env' - *Variables are declared as python variables*
-    - 'environ' - *Variables are declared as environment variables where value are in quotes*
-    - 'json'
-    - 'yaml'
-    - 'toml'
-- `globals_` - If not provided, variables will returned as a dictionary
+    If both path and include are provided, the variables are loaded from the file and the include argument is ignored
+
+    If path does not exist, the variables are loaded from the environment namespace and the include argument is used to filter the variables.
 
 
-<h3 id="load_file"><code>load_file</code></h3>
+    - `path` (Path | PathLike | str): The path to the file containing the environment variables
+    - `include` (list[str]): The variables to include when loading from the environment namespace
+    - `format_` - Format of the file containing the variables.It can be one of the following:
+        - 'env' - *Variables are declared as python variables*
+        - 'environ' - *Variables are declared as environment variables where value are in quotes*
+        - 'json'
+        - 'yaml'
+        - 'toml'
+    - `globals_` - If not provided, variables will returned as a dictionary
 
-```python
-load_file(
-    path: str, # path to the file
-    format_: str = 'environ', # the format of the file
-    globals_: dict = None, # the execution global namespace to load the variables into
-)
 
-```
-- `path` - The path to the file containing the variables
-- `format_` - Format of the file containing the variables.It can be one of the following:
-    - 'env' - *Variables are declared as python variables*
-    - 'json'
-    - 'yaml'
-    - 'toml'
-- `globals_` - If not provided, variables will returned as a dictionary
+- <h3 id="load_file"><code>load_file</code></h3>
 
-<h3 id="load_space"><code>load_space</code></h3>
+    ```python
+    load_file(
+        path: str, # path to the file
+        format_: str = 'environ', # the format of the file
+        globals_: dict = None, # the execution global namespace to load the variables into
+    )
 
-```python
-load_space(
-    include: list, # a list of variables to be included from the environment namespace
-    globals_: dict = None, # the execution global namespace to load the variables into
-)
-```
-- `include` - A list of variables to be included from the environment namespace
-- `globals_` - If not provided, variables will returned as a dictionary
+    ```
+    - `path` - The path to the file containing the variables
+    - `format_` - Format of the file containing the variables.It can be one of the following:
+        - 'env' - *Variables are declared as python variables*
+        - 'json'
+        - 'yaml'
+        - 'toml'
+    - `globals_` - If not provided, variables will returned as a dictionary
+
+- <h3 id="load_space"><code>load_space</code></h3>
+
+    ```python
+    load_space(
+        include: list, # a list of variables to be included from the environment namespace
+        globals_: dict = None, # the execution global namespace to load the variables into
+    )
+    ```
+    - `include` - A list of variables to be included from the environment namespace
+    - `globals_` - If not provided, variables will returned as a dictionary
 
 
 <h2 id="upcoming-features">Upcoming Features</h2>
-
-- Make loading function default to environment namespace if provided path is not found
 
 - Support for multiline declaration in the `'env'` and `'environ'` formats
 

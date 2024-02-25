@@ -1,6 +1,9 @@
 # Cache files
 *cache*
 
+# Distribution packages
+dist
+
 # Environment files apart from main module and test data
 *env*
 

@@ -11,3 +11,5 @@
 - [ ] Ensure steps are complete: [here on line 33 and 47](../secret_garden/readers.py)
 
 - [ ] Change Pathy to (Path | Pathlike | str) in the function signature
+
+- [ ] Add multiline declaration for env and environ formats

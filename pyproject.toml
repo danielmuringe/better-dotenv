@@ -1,9 +1,30 @@
 [tool.poetry]
 name = "secret-garden"
-version = "0.1.0"
+version = "0.1.5"
 description = "A better way to manage your dotenv variables"
 authors = ["DanielMuringe <danielmuringe@gmail.com>"]
 readme = "USAGE.md"
+keywords = [
+    "dotenv",
+    "environment",
+    "variables",
+    "environment variables",
+    "dotenv variables",
+    "typed dotenv",
+    "typed environment variables",
+    "typed dotenv variables",
+    "dotenv management",
+    "environment management",
+    "secret variables",
+]
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"

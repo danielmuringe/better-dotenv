@@ -11,8 +11,8 @@
 ## Table of Contents
 
 1. [Usage](#usage)
-    - [load_file function](#load_file-function)
-    - [load_space function](#load_space-function)
+    - load_file function
+    - load_space function
 
 1. [Examples](#examples)
     - [Using a file](#using-a-file)
@@ -30,9 +30,9 @@
 1. [Upcoming features](#upcoming-features)
 
 
-## Usage
+<h2 id="usage">Usage<h2>
 
-- You can package your variables in a file or use the environment namespace
+<p>You can put your variables in a file or use the environment namespace<p>
 
 ### load_file function
 

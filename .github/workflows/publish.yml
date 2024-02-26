@@ -60,7 +60,7 @@ jobs:
         python -m poetry config virtualenvs.create false
         python -m poetry install --no-dev
 
-    - name: Setup poetry for testpypi
+    - name: Setup testpypi in poetry
       continue-on-error: false
       run: | 
         python -m poetry config repositories.testpypi https://test.pypi.org/legacy/

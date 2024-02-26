@@ -37,13 +37,8 @@ jobs:
         python -m poetry add pytest
 
     - name: Test with pytest
-      continue-on-error: false
-      if: success()
       run: |
         python -m pytest -s
-    
-    - name: Print success message
-      run: echo "All tests passed"
 
 
   publish:

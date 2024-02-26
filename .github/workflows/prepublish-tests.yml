@@ -1,7 +1,7 @@
 # Run tests
 # Run a rehearsal of the publishing process to TestPyPI
 
-name: Test published package on testpypi
+name: Test published package on TestPyPi
 
 on:
   push:

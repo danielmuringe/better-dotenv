@@ -1,12 +1,11 @@
 # Run tests
 # Run a rehearsal of the publishing process to TestPyPI
 
-name: Development Workflow
+name: Publish to TestPyPI
 
 on:
   push:
-    tags:
-      - 'v0.1.*'
+    tags: ['v0.1.*']
 
 jobs:
 
@@ -41,7 +40,6 @@ jobs:
 
   publish:
 
-    if: github.ref == 'refs/heads/dev'
     needs: test
     runs-on: ubuntu-latest
 

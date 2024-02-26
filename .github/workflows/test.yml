@@ -1,6 +1,6 @@
 # Run tests
 
-name: Development Workflow
+name: Run Tests
 
 on:
   push:

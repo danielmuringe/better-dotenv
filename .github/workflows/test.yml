@@ -31,7 +31,7 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install poetry
         python -m poetry config virtualenvs.create false
-        python -m poetry install --no-dev
+        python -m poetry install --only main
         python -m poetry add pytest
 
     - name: Test with pytest

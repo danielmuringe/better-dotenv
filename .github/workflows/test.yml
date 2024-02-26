@@ -1,7 +1,6 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-python
+# Run tests
 
-name: Unit Tests
+name: Run tests
 
 on:
   push:
@@ -10,7 +9,7 @@ on:
     branches: [ "dev" ]
 
 jobs:
-  build:
+  test:
 
     runs-on: ubuntu-latest
     strategy:
@@ -20,7 +19,7 @@ jobs:
 
     steps:
 
-    - uses: actions/checkout@v4.0.0
+    - uses: actions/checkout@v4.1.1
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4.2.0
       with:
@@ -31,8 +30,9 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install poetry
         python -m poetry config virtualenvs.create false
-        python -m poetry install
+        python -m poetry install --no-dev
+        python -m poetry add pytest
 
     - name: Test with pytest
       run: |
-        pytest -s
+        python -m pytest -s

@@ -5,7 +5,7 @@ name: Test published package on TestPyPi
 
 on:
   push:
-    tags: ['v*']
+    tags: ['v1.*']
 
 env:
   SECRET_GARDEN_LOCAL: 'false'
@@ -35,10 +35,9 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install poetry
         python -m poetry config virtualenvs.create false
-        python -m poetry install --no-dev
+        python -m poetry install --only main
         python -m poetry add pytest 
-        python -m poetry config repositories.testpypi https://test.pypi.org/simple/
-        python -m poetry add secret-garden --source testpypi
+        python -m pip install --index-url https://test.pypi.org/simple/ secret-garden
 
     - name: Test with pytest
       run: |

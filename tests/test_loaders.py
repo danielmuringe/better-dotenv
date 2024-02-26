@@ -1,7 +1,7 @@
 """Test main loading functions"""
 
 # Second-party imports
-from secret_garden import load, load_file, load_space
+from . import secret_garden
 
 
 class TestLoadSpace:
@@ -9,7 +9,7 @@ class TestLoadSpace:
 
     def test_return_value(self, final_data, included_vars, excluded_vars):
         """Test return value"""
-        vars_ = load_space(included_vars)
+        vars_ = secret_garden.load_space(included_vars)
         assert vars_ == final_data
 
         # Test excluded variables
@@ -18,7 +18,7 @@ class TestLoadSpace:
 
     def test_global_variables(self, final_data, included_vars, excluded_vars):
         """Test global variables"""
-        load_space(included_vars, globals())
+        secret_garden.load_space(included_vars, globals())
         for var, val in final_data.items():
             assert globals()[var] == val
 
@@ -34,7 +34,7 @@ class TestLoadFile:
         """Test return value"""
         for file_format in file_formats:
             file_path = data_dir / f"env.{file_format}"
-            vars_ = load_file(file_path, file_format)
+            vars_ = secret_garden.load_file(file_path, file_format)
             assert vars_ == final_data
 
             # Test excluded variables
@@ -45,7 +45,7 @@ class TestLoadFile:
         """Test global variables"""
         for file_format in file_formats:
             file_path = data_dir / f"env.{file_format}"
-            load_file(file_path, file_format, globals())
+            secret_garden.load_file(file_path, file_format, globals())
             for var, val in final_data.items():
                 assert globals()[var] == val
 
@@ -69,11 +69,11 @@ class TestLoad:
             file_path = data_dir / f"env.{file_format}"
 
             # Test return value
-            vars_ = load(file_path, format_=file_format)
+            vars_ = secret_garden.load(file_path, format_=file_format)
             assert vars_ == final_data
 
             # Test global variables
-            load(file_path, format_=file_format, globals_=globals())
+            secret_garden.load(file_path, format_=file_format, globals_=globals())
             for var, val in final_data.items():
                 assert globals()[var] == val
 
@@ -91,11 +91,11 @@ class TestLoad:
         """Test loading using include only"""
 
         # Test return value
-        vars_ = load(included_vars)
+        vars_ = secret_garden.load(included_vars)
         assert vars_ == final_data
 
         # Test global variables
-        load(included_vars, globals_=globals())
+        secret_garden.load(included_vars, globals_=globals())
         for var, val in final_data.items():
             assert globals()[var] == val
 
@@ -118,11 +118,11 @@ class TestLoad:
             file_path = data_dir / f"env.{file_format}"
 
             # Test return value
-            vars_ = load(file_path, included_vars, format_=file_format)
+            vars_ = secret_garden.load(file_path, included_vars, format_=file_format)
             assert vars_ == final_data
 
             # Test global variables
-            load(
+            secret_garden.load(
                 file_path,
                 included_vars,
                 format_=file_format,
@@ -150,11 +150,11 @@ class TestLoad:
             file_path = invalid_data_dir / f"env.{file_format}"
 
             # Test return value
-            vars_ = load(file_path, included_vars, format_=file_format)
+            vars_ = secret_garden.load(file_path, included_vars, format_=file_format)
             assert vars_ == final_data
 
             # Test global variables
-            load(
+            secret_garden.load(
                 file_path,
                 included_vars,
                 format_=file_format,

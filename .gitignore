@@ -20,5 +20,9 @@ dist
 # Poetry lock file
 poetry.lock
 
+# Publish workflows
+.github/workflows/*publish*.yml
+!github/workflows/publish-testpypi.yml
+
 # VS Code settings
 .vscode

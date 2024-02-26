@@ -20,10 +20,5 @@ dist
 # Poetry lock file
 poetry.lock
 
-# Test files
-*test*
-!prepublish-tests.yml
-!prepublish-tests/*
-
 # VS Code settings
 .vscode

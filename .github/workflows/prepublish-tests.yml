@@ -38,7 +38,7 @@ jobs:
         python -m poetry install --no-dev
         python -m poetry add pytest 
         python -m poetry config repositories.testpypi https://test.pypi.org/simple
-        python -m poetry add secret-garden --repository testpypi
+        python -m poetry add secret-garden --source testpypi
 
     - name: Test with pytest
       run: |

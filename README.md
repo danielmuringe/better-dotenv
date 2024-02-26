@@ -22,9 +22,9 @@
 
     Pre-requisite | Installation
     --- | ---
-    **python3.10** | [python3.10 downloads](https://www.python.org/downloads/release/python-3100/)
-    **pip3.10** | Download [the get-pip.py file](https://bootstrap.pypa.io/get-pip.py) and run `python3.10 get-pip.py`
-    **poetry** (pip improvement) | Run `pip3.10 install poetry`
+    **python3** | [python3 downloads](https://www.python.org/downloads/release/python-3100)
+    **pip3** | Download [the get-pip.py file](https://bootstrap.pypa.io/get-pip.py) and run `python3 get-pip.py`
+    **poetry** (pip improvement) | Run `pip3 install poetry`
     
 - Installing the package
 
@@ -172,6 +172,7 @@ load_space(
     poetry install --no-root
     poetry shell
     ```
+
 
 - Make your changes and ensure you have created tests to cover the changes.
 

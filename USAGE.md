@@ -72,7 +72,7 @@ Add your variables into the environment namespace
 ```bash
 export STR_VAR="string"
 export INT_VAR=1
-export FLOAT_VAR=1.0
+export FLOAT_VAR='1.0'
 export BOOL_VAR=True
 export LIST_VAR="['item1', 'item2']"
 export DICT_VAR="{'key1': 'value1', 'key2': 'value2'}"

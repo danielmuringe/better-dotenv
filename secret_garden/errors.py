@@ -1,7 +1,7 @@
 """Errors for secret_garden"""
 
 # Second-party imports
-from .utils import ALLOWED_FORMATS, get_extension, Path, PathLike
+from .utils import ALLOWED_FORMATS, Path, PathLike
 
 
 __all__ = [
@@ -101,12 +101,9 @@ class UnexpectedFormatError(ParserError):
 
         self.path = Path(path)
         self.expected_format = expected_format
-        self.path_extension = get_extension(self.path.name)
 
-        message = (
-            f'Unexpected file format for "{self.path}" in "{self.expected_format}"'
-        )
-        check_condition = self.path_extension == self.expected_format
+        message = f'Unexpected file format {self.path.suffix.lstrip(".")} in "{self.path}". Expected" {self.expected_format}"'
+        check_condition = self.path.suffix.lstrip(".") == self.expected_format
 
         super().__init__(message, check_condition)
 

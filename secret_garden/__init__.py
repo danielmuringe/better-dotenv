@@ -107,15 +107,15 @@ def load(
         arg = path_or_include[0]
 
         if isinstance(arg, (PathLike, str, Path)):
+            arg = Path(arg)
             if not arg.exists():
                 from_file = False
                 arg = path_or_include[1]
 
-        elif isinstance(arg, list):
-            arg = path_or_include[1]
-            if not arg.exists():
-                from_file = False
-                arg = path_or_include[0]
+                if not isinstance(arg, list):
+                    raise ValueError(
+                        f'Invalid type "{path_or_include}" for one or both arguments in "path_or_include"'
+                    )
 
         else:
             raise ValueError(

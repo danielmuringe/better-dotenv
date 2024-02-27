@@ -1,13 +1,11 @@
 ## Future
 
-- [ ] Add env references to file declaration
+- [ ] Add environ references in file declaration
 
 - [ ] Default file name to be called .env.extension or just .env and auto determine the file type
 
 - [ ] Load to global namespace without explicitly adding the globals() dictionary as an argument
 
-- [ ] Tell load function to default to environment namespace if .env file is not found but needed variables will have to be declared in the function call
-
-- [ ] Ensure steps are complete: [here on line 33 and 47](../secret_garden/readers.py)
-
 - [ ] Add multiline declaration for env and environ formats
+
+- [ ] Add auto-reloading functionality

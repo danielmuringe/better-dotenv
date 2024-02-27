@@ -98,7 +98,9 @@ load_space(
 
 <h3 id="load-function">Loading from a file using the environment namespace as an alternative</h3>
 
-- This is done using the `load` function.
+- This is done using the `load` function by declaring in order:
+    1. the path to the file containing the variables
+    1. the variables to be included from the environment namespace
 
 - If both path and include are provided, the variables are loaded from the file and the include argument is ignored.
 
